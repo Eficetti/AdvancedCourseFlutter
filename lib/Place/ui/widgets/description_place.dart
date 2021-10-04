@@ -68,7 +68,13 @@ class DescriptionPlace extends StatelessWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[titleStars, description, ButtonPurple("Navigate")],
+      children: <Widget>[
+        titleStars,
+        description,
+        ButtonPurple(
+          buttonText: "Navigate",
+        )
+      ],
     );
   }
 }

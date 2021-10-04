@@ -4,6 +4,7 @@ import '/widgets/buttonsLogIn.dart';
 import '/User/Bloc/bloc_user.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:flutter_application_1/platzi_trips_cupertino.dart';
+import '/User/model/user.dart';
 // import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class SigninScreen extends StatefulWidget {
@@ -15,10 +16,11 @@ class SigninScreen extends StatefulWidget {
 
 class _SigninScreen extends State<SigninScreen> {
   UserBloc userBloc;
-
+  double screenWidth;
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of(context);
+    screenWidth = MediaQuery.of(context).size.width;
     return _handlerCurrentSession();
   }
 
@@ -40,22 +42,37 @@ class _SigninScreen extends State<SigninScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          GradientBack(' ', null),
+          GradientBack(
+            height: null,
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Welcome \n This is your travel app!',
-                style: TextStyle(
-                    fontSize: 37.0,
-                    fontFamily: 'Lato',
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+              Flexible(
+                child: Container(
+                  width: screenWidth,
+                  child: Text(
+                    'Welcome \n This is your travel app!',
+                    style: TextStyle(
+                        fontSize: 37.0,
+                        fontFamily: 'Lato',
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
+
               ButtonLogIn(
                 text: 'Login with Google',
                 onPressed: () {
-                  userBloc.SignIn();
+                  userBloc.SignIn().then((user) {
+                    userBloc.updateUserData(Usuario(
+                      uid: user.uid,
+                      name: user.displayName,
+                      email: user.email,
+                      photoURL: user.photoURL,
+                    ));
+                  });
                 },
                 width: 300,
                 height: 50,

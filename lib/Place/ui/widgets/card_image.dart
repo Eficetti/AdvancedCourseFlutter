@@ -3,16 +3,27 @@ import '/widgets/floating_action_button_green.dart';
 
 // ignore: must_be_immutable
 class CardImage extends StatelessWidget {
-  String pathImage = "assets/img/beach.jpeg";
+  final double heigth;
+  final double width;
+  double marginLeft = 20;
+  final String pathImage;
+  final VoidCallback onPressedFabIcon;
+  final IconData iconData;
 
-  CardImage(this.pathImage);
+  CardImage(
+      {Key key,
+      @required this.pathImage,
+      this.heigth = 250,
+      this.width = 350,
+      this.onPressedFabIcon,
+      @required this.iconData});
 
   @override
   Widget build(BuildContext context) {
     final card = Container(
-      height: 350.0,
-      width: 250.0,
-      margin: EdgeInsets.only(top: 80.0, left: 20.0),
+      height: heigth,
+      width: width,
+      margin: EdgeInsets.only(top: 80.0, left: marginLeft),
       decoration: BoxDecoration(
           image:
               DecorationImage(fit: BoxFit.cover, image: AssetImage(pathImage)),
@@ -28,7 +39,13 @@ class CardImage extends StatelessWidget {
 
     return Stack(
       alignment: Alignment(0.9, 1.1),
-      children: <Widget>[card, FloatingActionButtonGreen()],
+      children: <Widget>[
+        card,
+        FloatingActionButtonGreen(
+          iconData: iconData,
+          onPressed: onPressedFabIcon,
+        )
+      ],
     );
   }
 }

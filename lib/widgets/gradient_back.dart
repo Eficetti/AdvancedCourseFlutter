@@ -5,11 +5,18 @@ class GradientBack extends StatelessWidget {
   String title = "Popular";
   double height = 0.0;
 
-  GradientBack(this.title, this.height);
+  GradientBack({Key key, this.title, this.height});
 
   @override
   Widget build(BuildContext context) {
+    double screenHeigth = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    if (height == null) {
+      height = screenHeigth;
+    }
     return Container(
+      width: screenWidth,
       height: height,
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -18,15 +25,26 @@ class GradientBack extends StatelessWidget {
               end: FractionalOffset(1.0, 0.6),
               stops: [0.0, 0.6],
               tileMode: TileMode.clamp)),
-      child: Text(
-        title,
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 30.0,
-            fontFamily: "Lato",
-            fontWeight: FontWeight.bold),
+      child: FittedBox(
+        fit: BoxFit.none,
+        alignment: Alignment(-1.5, -0.8),
+        child: Container(
+          width: screenHeigth,
+          height: screenHeigth,
+          decoration: BoxDecoration(
+              color: Color.fromRGBO(0, 0, 0, 0.05),
+              borderRadius: BorderRadius.circular(screenHeigth / 2)),
+        ),
       ),
-      alignment: Alignment(-0.9, -0.6),
+      /*Text(
+      //   title,
+      //   style: TextStyle(
+      //       color: Colors.white,
+      //       fontSize: 30.0,
+      //       fontFamily: "Lato",
+      //       fontWeight: FontWeight.bold),
+      // )*/
+      // alignment: Alignment(-0.9, -0.6),
     );
   }
 }

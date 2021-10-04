@@ -5,7 +5,6 @@ import '/widgets/floating_action_button_green.dart';
 // ignore: must_be_immutable
 class ProfilePlaceInfo extends StatelessWidget {
   Place place;
-
   ProfilePlaceInfo(this.place);
 
   @override
@@ -24,7 +23,7 @@ class ProfilePlaceInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                this.place.where,
+                this.place.description,
                 style: TextStyle(
                     color: Color.fromRGBO(0, 0, 0, 0.4),
                     fontFamily: 'Lato',
@@ -32,7 +31,7 @@ class ProfilePlaceInfo extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                this.place.type,
+                this.place.urlImage,
                 style: TextStyle(
                     color: Color.fromRGBO(0, 0, 0, 0.4),
                     fontFamily: 'Lato',
@@ -42,7 +41,7 @@ class ProfilePlaceInfo extends StatelessWidget {
             ]));
 
     final steps = Text(
-      'Steps ${this.place.steps}',
+      'Steps ${this.place.likes}',
       style: TextStyle(
           fontFamily: 'Lato',
           fontSize: 14.0,
@@ -71,7 +70,12 @@ class ProfilePlaceInfo extends StatelessWidget {
 
     return Stack(
       alignment: Alignment(0.8, 1.25),
-      children: <Widget>[card, FloatingActionButtonGreen()],
+      children: <Widget>[
+        card,
+        FloatingActionButtonGreen(
+          iconData: Icons.favorite_border,
+        )
+      ],
     );
   }
 }
