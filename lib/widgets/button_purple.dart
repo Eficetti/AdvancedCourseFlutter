@@ -5,7 +5,7 @@ class ButtonPurple extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
 
-  ButtonPurple({Key key, @required this.buttonText, @required this.onPressed});
+  ButtonPurple({Key key, @required this.buttonText, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

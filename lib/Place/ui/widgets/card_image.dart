@@ -13,7 +13,7 @@ class CardImage extends StatelessWidget {
   CardImage(
       {Key key,
       @required this.pathImage,
-      this.heigth = 250,
+      this.heigth = 350,
       this.width = 350,
       this.onPressedFabIcon,
       @required this.iconData});
@@ -42,9 +42,7 @@ class CardImage extends StatelessWidget {
       children: <Widget>[
         card,
         FloatingActionButtonGreen(
-          iconData: iconData,
-          onPressed: onPressedFabIcon,
-        )
+            iconData: iconData, onPressed: onPressedFabIcon)
       ],
     );
   }

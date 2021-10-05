@@ -3,7 +3,6 @@ import 'package:flutter_application_1/Place/ui/screens/addPlaceScreen.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'circle_button.dart';
 import '/User/Bloc/bloc_user.dart';
-import 'dart:io';
 import '/Place/ui/screens/addPlaceScreen.dart';
 
 // ignore: must_be_immutable
@@ -21,13 +20,10 @@ class ButtonsBar extends StatelessWidget {
                 Color.fromRGBO(255, 255, 255, 0.6), () => {}),
             CircleButton(
                 false, Icons.add, 40.0, Color.fromRGBO(255, 255, 255, 1), () {
-              File image;
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => addPlaceScreen(
-                            Image: image,
-                          )));
+                      builder: (BuildContext context) => addPlaceScreen()));
             }),
             CircleButton(
                 true,

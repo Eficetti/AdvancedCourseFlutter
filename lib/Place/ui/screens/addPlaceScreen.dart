@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Place/model/place.dart';
-import 'package:flutter_application_1/Place/ui/widgets/card_image.dart';
 import 'package:flutter_application_1/User/Bloc/bloc_user.dart';
 import 'package:flutter_application_1/widgets/button_purple.dart';
 import 'dart:io';
 import 'package:flutter_application_1/widgets/gradient_back.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:image_picker/image_picker.dart';
 import '/widgets/titleHeader.dart';
 import '/widgets/textInput.dart';
 import '/Place/ui/widgets/titleInputLocation.dart';
+import 'dart:async';
 
 // ignore: must_be_immutable
 class addPlaceScreen extends StatefulWidget {
-  File Image;
-
-  addPlaceScreen({Key key, this.Image});
   State createState() {
     return _addPlaceScreen();
   }
 }
 
 class _addPlaceScreen extends State<addPlaceScreen> {
+  File _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final _controllerTitlePlace = TextEditingController();
@@ -61,14 +69,21 @@ class _addPlaceScreen extends State<addPlaceScreen> {
             margin: EdgeInsets.only(top: 120, bottom: 20),
             child: ListView(
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  child: CardImage(
-                    pathImage:
-                        'assets/img/beach_palm.jpeg', //widget.Image.path,
-                    iconData: Icons.camera_alt,
+                Stack(alignment: Alignment(0.9, 1.0), children: <Widget>[
+                  Container(
+                    child: _image == null
+                        ? Text(
+                            'No hay imagen seleccionada.',
+                            textAlign: TextAlign.center,
+                          )
+                        : Image.file(_image),
                   ),
-                ),
+                  FloatingActionButton(
+                    onPressed: getImage,
+                    tooltip: 'Pick Image',
+                    child: Icon(Icons.add_a_photo),
+                  )
+                ]),
                 Container(
                   margin: EdgeInsets.only(top: 30, bottom: 20),
                   child: TextInput(
