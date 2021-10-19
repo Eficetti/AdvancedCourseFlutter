@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Place/model/place.dart';
 import 'package:flutter_application_1/User/Bloc/bloc_user.dart';
@@ -10,6 +11,7 @@ import '/widgets/titleHeader.dart';
 import '/widgets/textInput.dart';
 import '/Place/ui/widgets/titleInputLocation.dart';
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: must_be_immutable
 class addPlaceScreen extends StatefulWidget {
@@ -111,14 +113,30 @@ class _addPlaceScreen extends State<addPlaceScreen> {
                   child: ButtonPurple(
                     buttonText: 'Add place',
                     onPressed: () {
-                      userBloc
-                          .updatePlaceDate(Place(
-                              name: _controllerTitlePlace.text,
-                              description: _controllerDescriptionPlace.text,
-                              likes: 0))
-                          .whenComplete(() {
-                        print('termino');
-                        Navigator.pop(context);
+                      userBloc.currentUser().then((User user) {
+                        if (user != null) {
+                          String uid = user.uid;
+                          String path = "$uid/${DateTime.now().toString()}.jpg";
+                          userBloc
+                              .uploadFile(path, _image)
+                              .then((UploadTask uploadTask) {
+                            uploadTask.then((TaskSnapshot snapshot) {
+                              snapshot.ref.getDownloadURL().then((urlImage) {
+                                print('URL: ${urlImage}');
+                                userBloc
+                                    .updatePlaceDate(Place(
+                                        name: _controllerTitlePlace.text,
+                                        description:
+                                            _controllerDescriptionPlace.text,
+                                        likes: 0,
+                                        urlImage: urlImage))
+                                    .whenComplete(() {
+                                  Navigator.pop(context);
+                                });
+                              });
+                            });
+                          });
+                        }
                       });
                     },
                   ),

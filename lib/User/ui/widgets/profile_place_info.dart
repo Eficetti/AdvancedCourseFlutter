@@ -30,18 +30,10 @@ class ProfilePlaceInfo extends StatelessWidget {
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold),
               ),
-              Text(
-                this.place.urlImage,
-                style: TextStyle(
-                    color: Color.fromRGBO(0, 0, 0, 0.4),
-                    fontFamily: 'Lato',
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold),
-              )
             ]));
 
     final steps = Text(
-      'Steps ${this.place.likes}',
+      'Likes ${this.place.likes}',
       style: TextStyle(
           fontFamily: 'Lato',
           fontSize: 14.0,
@@ -74,6 +66,7 @@ class ProfilePlaceInfo extends StatelessWidget {
         card,
         FloatingActionButtonGreen(
           iconData: Icons.favorite_border,
+          onPressed: () {},
         )
       ],
     );

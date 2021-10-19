@@ -1,4 +1,3 @@
-import '/User/model/user.dart';
 import 'package:flutter/material.dart';
 
 class Place {
@@ -7,7 +6,8 @@ class Place {
   String description;
   String urlImage;
   int likes;
-  Usuario userOwner;
+  bool liked;
+  //Usuario userOwner;
 
   Place(
       {Key key,
@@ -16,5 +16,7 @@ class Place {
       this.description,
       this.urlImage,
       this.likes,
-      this.userOwner});
+      this.liked
+      // this.userOwner
+      });
 }

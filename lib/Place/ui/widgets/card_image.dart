@@ -25,8 +25,8 @@ class CardImage extends StatelessWidget {
       width: width,
       margin: EdgeInsets.only(top: 80.0, left: marginLeft),
       decoration: BoxDecoration(
-          image:
-              DecorationImage(fit: BoxFit.cover, image: AssetImage(pathImage)),
+          image: DecorationImage(
+              fit: BoxFit.cover, image: NetworkImage(pathImage)),
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           shape: BoxShape.rectangle,
           boxShadow: <BoxShadow>[
